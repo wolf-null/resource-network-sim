@@ -84,10 +84,11 @@ class TheGame:
     def print_networkx(self):
         # Find a max resource value:
         max_resource = max(self.resource)
+        min_resource = min(self.resource)
 
         colors = list()
         for k in range(len(self.resource)):
-            colors += [(self.resource[k]/max_resource, 0, 0), ]
+            colors += [((self.resource[k]-min_resource)/(max_resource-min_resource), 0, 0), ]
 
         """Visualization part"""
         figures, axes = plt.subplots(1,3, figsize=plt.figaspect(0.5))
@@ -118,16 +119,16 @@ class TheGame:
 
 from GraphGenerator import BinomialInitializer
 # sw = BinomialInitializer(0.04081632653061224)
-sw = SwitchInitializer(5)
-sw.build(40)
-#sw.random_reconnect(10000)
-#sw.burnout(50)
+sw = SwitchInitializer(3)
+sw.build(70)
+sw.random_reconnect(10000)
+sw.burnout(10)
 #sw.random_reconnect(10000)
 sw.print_networkx()
 
 game = TheGame(sw, start_resource=10)
 #game.hist_resources()
-game.sync_random_donation_link_based(20000, 0.99999)
+game.sync_random_donation_link_based(200000, 0.9)
 # game.sync_random_donation(1000, max_amount_of_donation=9)
 print('histing...')
 #game.hist_resources()
