@@ -128,7 +128,7 @@ sw.print_networkx()
 
 game = TheGame(sw, start_resource=10)
 #game.hist_resources()
-game.sync_random_donation_link_based(200000, 0.9)
+game.sync_random_donation_link_based(200000, 0.005)
 # game.sync_random_donation(1000, max_amount_of_donation=9)
 print('histing...')
 #game.hist_resources()
