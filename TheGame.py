@@ -68,8 +68,15 @@ class TheGame:
                 self.resource[transaction[0]] -= 1
                 self.resource[transaction[1]] += 1
 
-    # def update_resources_distribution(self):
-
+    def async_random_donation_link_based(self, sqrt_number_of_steps, max_donation):
+        for step in range(sqrt_number_of_steps):
+            print(step, 'of', sqrt_number_of_steps)
+            for step_2 in range(sqrt_number_of_steps):
+                node_a = rnd.randint(0, self.graph.size-1)
+                node_b = list(self.graph.graph[node_a])[rnd.randint(0, len(self.graph.graph[node_a])-1)]
+                amount = rnd.randint(0, min(max_donation, self.resource[node_a]))
+                self.resource[node_a] -= amount
+                self.resource[node_b] += amount
 
     """GRAPH VISUALIZATION"""
 
@@ -105,7 +112,7 @@ class TheGame:
 
         exp = self.export_networkx()
 
-        networkx.draw_networkx(self.export_networkx(), ax=axes[0], with_labels=False, node_size=12, edge_color='gray', node_color = colors)
+        networkx.draw_circular(self.export_networkx(), ax=axes[0], with_labels=False, node_size=12, edge_color='gray', node_color = colors)
 
         plt.show()
 
@@ -119,20 +126,21 @@ class TheGame:
 
 from GraphGenerator import BinomialInitializer
 # sw = BinomialInitializer(0.04081632653061224)
-sw = SwitchInitializer(3)
-sw.build(70)
+sw = SwitchInitializer(2)
+sw.build(20)
 sw.random_reconnect(10000)
-sw.burnout(10)
-#sw.random_reconnect(10000)
+sw.burnout(15)
+sw.random_reconnect(10000)
 sw.print_networkx()
 
-game = TheGame(sw, start_resource=10)
-#game.hist_resources()
-game.sync_random_donation_link_based(200000, 0.005)
-# game.sync_random_donation(1000, max_amount_of_donation=9)
-print('histing...')
-#game.hist_resources()
+game = TheGame(sw, start_resource=100)
+game.async_random_donation_link_based(1000, 200)
 game.print_networkx()
+game.async_random_donation_link_based(1000, 200)
+game.print_networkx()
+game.async_random_donation_link_based(4000, 200)
+game.print_networkx()
+
 exit(0)
 
 
