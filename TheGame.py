@@ -2,22 +2,6 @@ import networkx
 import matplotlib.pyplot as plt
 from GraphGenerator import GraphGenerator
 
-"""
-Two games:
-
-    
-async random transaction
-    Two random connected agents pays random amount of money (max=[max_transaction]) in random direction ("a to b" or "b to a")
-    
-    Assumption: has the same result as the sync transaction, but, probably, converges faster
-    
-Base TheGame class should:
-    Do visualisations and statistics of general stats (graph + wealth)
-
-Base TheGame class shouldn't:
-    Implement game mechanics    
-"""
-
 
 class TheGame:
     def __init__(self, graph=GraphGenerator, size=10, start_resource=10):
@@ -80,11 +64,15 @@ class TheGame:
         self.axes[1].hist(self.wealth, density=True)
 
         links_counts = [len(node) for node in self.graph]
+
+
+
         self.axes[2].scatter(links_counts, self.wealth)
         self.axes[2].set_xlabel('Link count')
         self.axes[2].set_ylabel('Resource amount')
 
         self.axes[0].collections[0].set_facecolor(colors)
+        #self.axes[0].collections[0].set_edgecolor('black')
         plt.draw()
         plt.pause(0.01)
 

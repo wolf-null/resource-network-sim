@@ -55,8 +55,13 @@ class GraphGenerator:
                 exp.add_edges_from([(k,j),(j,k)])
         return exp
 
-    def dropout(self, number_of_breaks):
-        while number_of_breaks > 0:
+    def dropout(self, goal_number_of_breaks, max_retries=-1):
+        if max_retries == -1:
+            max_retries = max(1000, goal_number_of_breaks*2)
+        print("dropout...")
+        retry_counter = 0
+        n_breaks = 0
+        while goal_number_of_breaks > 0 and retry_counter != max_retries:
             node_a = rnd.randint(0, self.size-1)
             links_from_a = self.graph[node_a]
             if len(links_from_a) <= 1:
@@ -69,9 +74,13 @@ class GraphGenerator:
             if not self.check_connectivity(node_a, node_b):
                 self.graph[node_a] |= {node_b, }
                 self.graph[node_b] |= {node_a, }
+                retry_counter += 1
                 continue
-            print(number_of_breaks, ' left')
-            number_of_breaks -= 1
+            #retry_counter = 0
+            goal_number_of_breaks -= 1
+            n_breaks += 1
+        print("end dropout")
+        return n_breaks
 
     def random_connected_node(self, node_a):
         return rnd.choice(list(self.graph[node_a]))

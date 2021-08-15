@@ -60,7 +60,11 @@ class GraphGeneratorSwitching(GraphGenerator):
 
         # Dropout random connections
         number_of_connections = sum([len(node) for node in self.graph])/2
-        number_of_dropouts = min(0, int(number_of_connections * self.fraction_of_dropout) - self.size)
-        self.dropout(number_of_dropouts)
+        start_number_of_connections = number_of_connections
+        number_of_dropouts = int((number_of_connections-size+1) * self.fraction_of_dropout)
+        print("expected number_of_dropouts ", number_of_dropouts, " from ", number_of_connections)
+        actual_dropout = self.dropout(number_of_dropouts)
+        print("actual dropout: ", round(actual_dropout / (number_of_connections-size+1) * 100, 3), "%")
+        print("dropt ", actual_dropout, " connections of ", start_number_of_connections, "\n")
 
         return self.graph

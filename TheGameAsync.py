@@ -9,9 +9,9 @@ class TheGameAsync(TheGame):
         self.max_payment = max_payment
         self.random_payment_direction = random_payment_direction
 
-    def simulate(self, sqrt_number_of_steps):
-        for step in range(sqrt_number_of_steps):
-            for step_2 in range(sqrt_number_of_steps):
+    def simulate(self, number_of_steps):
+        for step in range(number_of_steps):
+            for step_2 in range(number_of_steps):
                 node_a = rnd.randint(0, self.size-1)
                 node_b = list(self.graph[node_a])[rnd.randint(0, len(self.graph[node_a])-1)]
                 if rnd.random() >= 0.5 and self.random_payment_direction:

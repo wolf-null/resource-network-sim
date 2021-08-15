@@ -19,4 +19,6 @@ class GraphGeneratorBinomial(GraphGenerator):
                         self.graph[k] |= {j, }
                         self.graph[j] |= {k, }
             if self.check_total_connectivity():
+                number_of_connections = sum([len(node) for node in self.graph])/2
+                print("number of connections: ", number_of_connections)
                 return self.graph

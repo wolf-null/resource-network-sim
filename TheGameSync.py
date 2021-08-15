@@ -23,8 +23,8 @@ class TheGameSync(TheGame):
 
     def simulate(self, number_of_steps):
         for step in range(number_of_steps):
-            if step % 1000 == 0:
-                print(step, ' of ', number_of_steps)
+            #if step % 1000 == 0:
+            #    print(step, ' of ', number_of_steps)
             transaction_list = list()
             for pay_from in range(self.size):
                 pay_to_candidates = list(self.graph[pay_from])
