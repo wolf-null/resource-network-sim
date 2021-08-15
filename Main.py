@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 sw = GraphGeneratorSwitching(fraction_of_dropout=0.5, initial_n_connections=2, stages_of_reconnection=1000)
 # sw = GraphGeneratorBinomial(connection_prob=0.001)
 # game = TheGameSync(graph=sw, start_resource=100, size=1000, p=0.999)
-game = TheGameAsyncVariousGenerosity(graph=sw, max_payment=10, size=40, start_resource=2000, random_payment_direction=True)
+game = TheGameAsyncVariousGenerosity(graph=sw, max_payment=20, size=60, start_resource=20000, random_payment_direction=True)
 game.print_network()
 
 while True:

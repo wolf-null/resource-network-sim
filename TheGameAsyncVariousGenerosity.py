@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 class TheGameAsyncVariousGenerosity(TheGame):
     def __init__(self,  graph=GraphGenerator, size=10, start_resource=10, max_payment=1, random_payment_direction=True):
         super(TheGameAsyncVariousGenerosity, self).__init__(graph, size, start_resource)
-        self.generosity = [float(rnd.choice([1, 0.6, 0.1])) for k in range(size)]
+        self.generosity = [float(rnd.choice([1, 0.5, 0])) for k in range(size)]
         self.max_payment = max_payment
         self.random_payment_direction = random_payment_direction
 
