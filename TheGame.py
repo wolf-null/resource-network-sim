@@ -15,7 +15,7 @@ class TheGame:
 
     """GRAPH VISUALIZATION"""
 
-    def print_network(self, absolute_painting=True):
+    def print_network(self, absolute_painting=True, block_rendering = False):
         # Find a max resource value:
         max_resource = max(self.wealth)
         min_resource = min(self.wealth)
@@ -41,12 +41,14 @@ class TheGame:
         networkx.draw_networkx(self._export_as_networkx(), ax=self.axes[0], with_labels=False, node_size=12, edge_color='gray', node_color = colors)
 
         figures.canvas.manager.window.attributes('-topmost',1)
-        plt.ion()
-        plt.show()
-        plt.suptitle('Hold [space] to end')
-        plt.pause(2.01)
 
-    def update_network(self, absolute_painting = True):
+        if not block_rendering:
+            plt.ion()
+            plt.show()
+            plt.suptitle('Hold [space] to end')
+            plt.pause(2.01)
+
+    def update_network(self, absolute_painting = True, block_rendering = False):
         # Find a max resource value:
         max_resource = max(self.wealth)
         min_resource = min(self.wealth)
@@ -73,8 +75,9 @@ class TheGame:
 
         self.axes[0].collections[0].set_facecolor(colors)
         #self.axes[0].collections[0].set_edgecolor('black')
-        plt.draw()
-        plt.pause(0.01)
+        if not block_rendering:
+            plt.draw()
+            plt.pause(0.01)
 
     def hist_resources(self):
         plt.figure()

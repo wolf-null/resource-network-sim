@@ -4,7 +4,7 @@ import random as rnd
 
 
 class TheGameAsync(TheGame):
-    def __init__(self,  graph=GraphGenerator, size=10, start_resource=10, max_payment=1, random_payment_direction=True):
+    def __init__(self,  graph=GraphGenerator, size=10, start_resource=10, max_payment=10, random_payment_direction=True):
         super(TheGameAsync, self).__init__(graph, size, start_resource)
         self.max_payment = max_payment
         self.random_payment_direction = random_payment_direction
