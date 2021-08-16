@@ -7,7 +7,6 @@ from Graph.GraphGenerator import GraphGenerator
 import seaborn as sb
 import pandas as pd
 import statistics as stat
-import random as rnd
 
 class TheGame:
     def __init__(self, graph=GraphGenerator, size=10, start_resource=10):
