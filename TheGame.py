@@ -13,6 +13,13 @@ class TheGame:
     def simulate(self, n_steps):
         pass
 
+    def print_right_screen(self):
+        links_counts = [len(node) for node in self.graph]
+        self.axes[2].scatter(links_counts, self.wealth)
+        self.axes[2].set_xlabel('Link count')
+        self.axes[2].set_ylabel('Resource amount')
+
+
     """GRAPH VISUALIZATION"""
 
     def print_network(self, absolute_painting=True, block_rendering = False):
@@ -33,10 +40,7 @@ class TheGame:
         self.axes[0].set_axis_off()
         self.axes[1].hist(self.wealth, density=True)
 
-        links_counts = [len(node) for node in self.graph]
-        self.axes[2].scatter(links_counts, self.wealth)
-        self.axes[2].set_xlabel('Link count')
-        self.axes[2].set_ylabel('Resource amount')
+        self.print_right_screen()
 
         networkx.draw_networkx(self._export_as_networkx(), ax=self.axes[0], with_labels=False, node_size=12, edge_color='gray', node_color = colors)
 
@@ -67,11 +71,7 @@ class TheGame:
 
         links_counts = [len(node) for node in self.graph]
 
-
-
-        self.axes[2].scatter(links_counts, self.wealth)
-        self.axes[2].set_xlabel('Link count')
-        self.axes[2].set_ylabel('Resource amount')
+        self.print_right_screen()
 
         self.axes[0].collections[0].set_facecolor(colors)
         #self.axes[0].collections[0].set_edgecolor('black')
