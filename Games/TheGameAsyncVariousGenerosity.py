@@ -1,5 +1,5 @@
-from TheGame import TheGame
-from GraphGenerator import GraphGenerator
+from Games.TheGame import TheGame
+from Graph.GraphGenerator import GraphGenerator
 import random as rnd
 import matplotlib.pyplot as plt
 
@@ -18,6 +18,7 @@ class TheGameAsyncVariousGenerosity(TheGame):
         self.axes[2].scatter(links_counts, self.wealth, c=colors)
         self.axes[2].set_xlabel('Link count')
         self.axes[2].set_ylabel('Resource amount')
+        # plt.ylim(0, self.start_resource*2)
         # super(TheGameAsyncVariousGenerosity, self).print_right_screen()
 
 
@@ -43,7 +44,7 @@ class TheGameAsyncVariousGenerosity(TheGame):
             plt.ion()
             plt.show()
             plt.suptitle('Hold [space] to end. Total amount of wealth: ' + str(sum(self.wealth)))
-            plt.pause(2.01)
+            plt.pause(1.01)
 
     def update_network(self, absolute_painting = True, block_rendering = False):
         super(TheGameAsyncVariousGenerosity, self).update_network(absolute_painting, block_rendering=True)

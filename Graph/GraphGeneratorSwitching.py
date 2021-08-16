@@ -1,4 +1,4 @@
-from GraphGenerator import GraphGenerator
+from Graph.GraphGenerator import GraphGenerator
 import random as rnd
 
 
