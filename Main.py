@@ -10,16 +10,16 @@ import statistics as stat
 import seaborn as sb
 import pandas as pd
 
-sw = GraphGeneratorSwitching(fraction_of_dropout=0.4, initial_n_connections=8, stages_of_reconnection=2000)
+sw = GraphGeneratorSwitching(fraction_of_dropout=0.99, initial_n_connections=8, stages_of_reconnection=2000)
 # game = TheGameTrusted(graph=sw, max_payment=100, size=500, start_resource=10000)
-game = TheGameTaxes(graph=sw, max_payment=1, size=50, start_resource=20000, property_tax_model=(0,1,0.1)) #
+game = TheGameTaxes(graph=sw, max_payment=100, size=200, start_resource=20000, property_tax_model=(0,0.1,0.01)) #property_tax_model=(90,90.1,0.00001)
 game.print_network()
 iteration = 0
 
 while True:
-    # print(iteration, '\t', end='')
+    print("\titer: ", iteration)
 
-    game.simulate(number_of_steps=500)
+    game.simulate(number_of_steps=100)
     game.update_network(absolute_painting=True)
 
     if keyboard.is_pressed('pause'):

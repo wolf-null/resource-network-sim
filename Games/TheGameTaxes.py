@@ -41,7 +41,8 @@ class TheGameTaxes(TheGame):
                 node_b = list(self.graph[node_a])[rnd.randint(0, len(self.graph[node_a])-1)]
                 if rnd.random() >= 0.5:
                     node_a, node_b = node_b, node_a
-                amount = rnd.randint(0, min(self.max_payment, self.wealth[node_a]))
+                # amount = rnd.randint(0, min(self.max_payment, self.wealth[node_a]))
+                amount = rnd.random() * min(self.max_payment, self.wealth[node_a])
                 income_tax = 0
                 if self.income_tax_model is not None:
                     income_tax = tax_function(amount, self.income_tax_model)
@@ -55,7 +56,12 @@ class TheGameTaxes(TheGame):
                 self.wealth[node] -= property_tax
                 wealth_to_distribute += property_tax
 
-        for coins in range(wealth_to_distribute):
-            self.wealth[rnd.randint(0, self.size-1)] += 1
+        #for coins in range(wealth_to_distribute):
+        #    self.wealth[rnd.randint(0, self.size-1)] += 1
+
+        wealth_to_distribute /= self.size
+        for k in range(self.size):
+            self.wealth[k] += wealth_to_distribute
 
         print("\tsummary taxes ", wealth_to_distribute)
+

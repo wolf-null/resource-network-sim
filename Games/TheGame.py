@@ -30,7 +30,7 @@ class TheGame:
 
         links_counts_d = [(len(self.graph[k]), self.wealth[k]) for k in range(self.size)]
         data = pd.DataFrame(links_counts_d, columns=['connections', 'wealth'])
-        self.axes[2].hlines(0, 0, max(links_counts) - 1, color='lightgray')
+        # self.axes[2].hlines(0, 0, max(links_counts) - 1, color='lightgray')
         sb.boxplot(data=data, x='connections', y='wealth', ax=self.axes[2], color='gray')
 
     def print_network(self, absolute_painting=True, block_rendering = False):
