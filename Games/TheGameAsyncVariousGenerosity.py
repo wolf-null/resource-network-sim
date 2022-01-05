@@ -43,7 +43,7 @@ class TheGameAsyncVariousGenerosity(TheGame):
         if not block_rendering:
             plt.ion()
             plt.show()
-            plt.suptitle('Hold [space] to end. Total amount of wealth: ' + str(sum(self.wealth)))
+            plt.suptitle('Hold [pause] to end. Total amount of wealth: ' + str(sum(self.wealth)))
             plt.pause(1.01)
 
     def update_network(self, absolute_painting = True, block_rendering = False):
@@ -55,6 +55,6 @@ class TheGameAsyncVariousGenerosity(TheGame):
         self.axes[0].collections[0].set_facecolor(colors)
 
         if not block_rendering:
-            plt.suptitle('Hold [space] to end. Total amount of wealth: ' + str(round(sum(self.wealth),2)))
+            plt.suptitle('Hold [pause] to end. Total amount of wealth: ' + str(round(sum(self.wealth),2)))
             plt.draw()
             plt.pause(0.01)

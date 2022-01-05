@@ -15,7 +15,7 @@ while True:
     game.simulate(number_of_steps=100)
     game.update_network(absolute_painting=True)
 
-    if keyboard.is_pressed(' '):
+    if keyboard.is_pressed('pause'):
         plt.ioff()
         plt.show()
         break

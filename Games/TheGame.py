@@ -60,7 +60,7 @@ class TheGame:
         if not block_rendering:
             plt.ion()
             plt.show()
-            plt.suptitle('Hold [space] to end')
+            plt.suptitle('Hold [pause] to end')
             plt.pause(1.01)
 
     def update_network(self, absolute_painting = True, block_rendering = False):
@@ -92,7 +92,7 @@ class TheGame:
         if not block_rendering:
             plt.draw()
             plt.pause(0.01)
-            plt.suptitle('Hold [space] to end. Summary wealth: '+ str(round(sum(self.wealth),2)))
+            plt.suptitle('Hold [pause] to end. Summary wealth: '+ str(round(sum(self.wealth),2)))
 
     def hist_resources(self):
         plt.figure()
