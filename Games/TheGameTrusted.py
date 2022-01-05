@@ -3,7 +3,6 @@ from Graph.GraphGenerator import GraphGenerator
 import random as rnd
 
 
-
 class TheGameTrusted(TheGame):
     def __init__(self,  graph=GraphGenerator, size=10, start_resource=10, max_payment=10):
         super(TheGameTrusted, self).__init__(graph, size, start_resource)
@@ -22,7 +21,6 @@ class TheGameTrusted(TheGame):
                 if rnd.random() >= 0.5:
                     node_a, node_b = node_b, node_a
 
-                # amount = min(rnd.randint(1, self.max_payment), self.wealth[node_a])
                 amount = min(rnd.random()* self.max_payment, self.wealth[node_a])
 
                 self.wealth[node_a] -= amount
