@@ -1,12 +1,17 @@
 import random
 
+import matplotlib
+#matplotlib.use("Qt4Agg")
+
 import networkx
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 from Graph.GraphGenerator import GraphGenerator
 
 import seaborn as sb
 import pandas as pd
 import statistics as stat
+
 
 class TheGame:
     def __init__(self, graph=GraphGenerator, size=10, start_resource=10):
@@ -15,25 +20,24 @@ class TheGame:
         self.start_resource = start_resource
         self.wealth = [start_resource for k in range(size)]
         self.axes = list()
+        self.animation = None
+        self.animation_iter = ''
         sb.set_theme(style='whitegrid')
 
-    def simulate(self, n_steps):
+    def simulate(self, number_of_steps):
         pass
 
     """GRAPH VISUALIZATION"""
 
     def print_right_screen(self):
         links_counts = [len(node) for node in self.graph]
-        # self.axes[2].scatter(links_counts, self.wealth)
-        # self.axes[2].set_xlabel('Link count')
-        # self.axes[2].set_ylabel('Resource amount')
 
         links_counts_d = [(len(self.graph[k]), self.wealth[k]) for k in range(self.size)]
         data = pd.DataFrame(links_counts_d, columns=['connections', 'wealth'])
         # self.axes[2].hlines(0, 0, max(links_counts) - 1, color='lightgray')
         sb.boxplot(data=data, x='connections', y='wealth', ax=self.axes[2], color='gray')
 
-    def print_network(self, absolute_painting=True, block_rendering = False):
+    def print_network(self, absolute_painting=True):
         # Find a max resource value:
         max_resource = max(self.wealth)
         min_resource = min(self.wealth)
@@ -55,15 +59,9 @@ class TheGame:
 
         networkx.draw_networkx(self._export_as_networkx(), ax=self.axes[0], with_labels=False, node_size=12, edge_color='gray', node_color = colors)
 
-        figures.canvas.manager.window.attributes('-topmost',1)
+        return figures
 
-        if not block_rendering:
-            plt.ion()
-            plt.show()
-            plt.suptitle('Hold [pause] to end')
-            plt.pause(1.01)
-
-    def update_network(self, absolute_painting = True, block_rendering = False):
+    def update_network(self, absolute_painting = True):
         # Find a max resource value:
         max_resource = max(self.wealth)
         min_resource = min(self.wealth)
@@ -79,6 +77,7 @@ class TheGame:
         self.axes[1].clear()
         self.axes[2].clear()
         self.axes[1].hist(self.wealth, density=True)
+        plt.suptitle('Number of iteration: {}\nSummary wealth: {}'.format(self.animation_iter if self.animation_iter is not None else '--',  str(round(sum(self.wealth),2))))
 
         links_counts = [len(node) for node in self.graph]
 
@@ -86,13 +85,19 @@ class TheGame:
 
         self.axes[0].collections[0].set_facecolor(colors)
 
-
         print('\r[TheGame.py]:\tmean_wealth: ', sum(self.wealth) / self.size, '\tmedian:', stat.median(self.wealth), end='', flush=True)
 
-        if not block_rendering:
-            plt.draw()
-            plt.pause(0.01)
-            plt.suptitle('Hold [pause] to end. Summary wealth: '+ str(round(sum(self.wealth),2)))
+    def start_animation(self, absolute_painting = True):
+        figures = self.print_network()
+        self.animation_iter = 0
+
+        def func(*args, **kwargs):
+            self.simulate(number_of_steps=100)
+            self.update_network(absolute_painting=absolute_painting)
+            self.animation_iter += 1
+
+        self.animation = FuncAnimation(fig=figures, func=func)
+        plt.show()
 
     def hist_resources(self):
         plt.figure()
